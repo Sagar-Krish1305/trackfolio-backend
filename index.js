@@ -40,7 +40,7 @@ app.get("/intro", (req, res) => {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Trackfolio – P-Risk Manager API Docs</title>
+    <title>Trackfolio – Portfolio-Risk Manager API Docs</title>
     <style>
       body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
