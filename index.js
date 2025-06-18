@@ -1,6 +1,6 @@
 import express from "express";
 import { redis } from "./src/config/redisConfig.js";
-
+import cron from "node-cron";
 import {
   getCovarienceFromSymbol,
   getCovarienceMatrixController,
@@ -15,7 +15,15 @@ dotenv.config();
 const app = express();
 const PORT = 1305;
 
-await setUpDatabase();
+let dbSetupLock = false;
+cron.schedule("0 10 * * *", async () => {
+  if (dbSetupLock === true) {
+    console.log("Already setting up data. Skipping this one.");
+  }
+  dbSetupLock = true;
+  await setUpDatabase();
+  dbSetupLock = false;
+});
 
 // Connecting to Redis
 try {
