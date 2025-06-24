@@ -21,6 +21,7 @@ export const getUserHoldingsController = asyncHandler(async (req, res) => {
 });
 
 export const getPastOneYearPortfolioValueController = asyncHandler(async (req, res) => {
+    console.log("API HITTED")
   const { portfolio } = req.body;
 
   if (!portfolio || typeof portfolio !== 'object' || Object.keys(portfolio).length === 0) {
@@ -58,9 +59,9 @@ export const getPastOneYearPortfolioValueController = asyncHandler(async (req, r
 
     return {
       date,
-      value: totalValue.toFixed(2),
-      cost: totalCost.toFixed(2),
-      unrealizedProfit: (totalValue - totalCost).toFixed(2),
+      value: Number(totalValue.toFixed(2)),
+      cost: Number(totalCost.toFixed(2)),
+      unrealizedProfit: Number((totalValue - totalCost).toFixed(2)),
     };
   });
 

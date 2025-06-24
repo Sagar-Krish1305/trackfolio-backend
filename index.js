@@ -105,7 +105,7 @@ app.get("/intro", (req, res) => {
   </style>
 </head>
 <body>
-  <h1>📘 Trackfolio – P-Risk Manager API</h1>
+  <h1>📘 Trackfolio – Portfolio-Risk Manager API</h1>
   <p>This backend API allows you to analyze portfolio performance and risk, compute covariance, and access real-time market holdings using Alpaca.</p>
 
   <h2>📌 Available Endpoints</h2>
@@ -182,7 +182,7 @@ app.get("/intro", (req, res) => {
 app.get("/covarience-matrix", getCovarienceMatrixController);
 app.get("/covarience-from-symbol", getCovarienceFromSymbolController);
 app.get("/get-holdings/:apiKey/:secretKey", getUserHoldingsController);
-app.get("/get-past-year-portfolio-value", getPastOneYearPortfolioValueController);
+app.post("/get-past-year-portfolio-value", getPastOneYearPortfolioValueController);
 
 app.listen(PORT, function () {
   console.log(`Listning to Docker Image at PORT: ${PORT}`);
