@@ -67,3 +67,30 @@ export const getPastOneYearPortfolioValueController = asyncHandler(async (req, r
 
   res.status(200).json(result);
 });
+
+export async function getUserPortfolioController(req, res) {
+    try {
+        const { apiKey, secretKey } = req.params;
+        if (!apiKey || !secretKey) {
+            return res.status(400).json({ error: "API key and Secret key are required." });
+        }
+        const holdings = await getHoldingsFromAlpaca(apiKey, secretKey);
+        if (holdings.length === 0) {
+            return res.status(404).json({ error: "No holdings found or error fetching holdings." });
+        }
+        const portfolio = {};
+        for (const holding of holdings) {
+            const { symbol, qty, marketValue, company } = holding;
+            portfolio[symbol] = {
+                shares: parseFloat(qty),
+                buyPrice: parseFloat(marketValue) / parseFloat(qty),
+                company: company,
+            };
+        }
+        res.status(200).json(portfolio);
+    } catch (error) {
+        console.error("Error fetching user portfolio:", error.message);
+        res.status(500).json({ error: "Internal server error while fetching portfolio." });
+    }
+}
+

@@ -19,7 +19,6 @@ export async function getHoldingsFromAlpaca(apiKey, apiSecret) {
       symbol: holding.symbol,
       qty: parseFloat(holding.qty),
       marketValue: parseFloat(holding.market_value),
-      company: holding.asset
     }));
   } catch (error) {
     console.error("❌ Error fetching holdings from Alpaca:", error.message);

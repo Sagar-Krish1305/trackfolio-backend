@@ -9,6 +9,7 @@ import {
 // Config Enviorment Variables
 import dotenv from "dotenv";
 import { getPastOneYearPortfolioValueController, getUserHoldingsController } from "./src/controllers/user_portfolio.controller.js";
+import { getLatestPriceOfSymbolController } from "./src/controllers/bars.controller.js";
 
 dotenv.config();
 
@@ -183,6 +184,7 @@ app.get("/covarience-matrix", getCovarienceMatrixController);
 app.get("/covarience-from-symbol", getCovarienceFromSymbolController);
 app.get("/get-holdings/:apiKey/:secretKey", getUserHoldingsController);
 app.post("/get-past-year-portfolio-value", getPastOneYearPortfolioValueController);
+app.get("/get-latest-price/:symbol", getLatestPriceOfSymbolController);
 
 app.listen(PORT, function () {
   console.log(`Listning to Docker Image at PORT: ${PORT}`);

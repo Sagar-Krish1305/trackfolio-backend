@@ -152,3 +152,19 @@ export async function updateHistoricalBars(symbol, retries = 3) {
   }
 }
 
+// getting the latest stock price of a sumbol from json
+export async function getLatestStockPrice(symbol) {
+
+  await getMultipleBars([symbol]); // Ensure latest bar data is fetched
+
+  const barsPath = path.join("./src/db/bars", `${symbol}.json`);
+  try {
+    const data = await fs.readFile(barsPath, "utf-8");
+    const bars = JSON.parse(data);
+    const latestDate = Object.keys(bars).pop();
+    return bars[latestDate].c; // return the closing price
+  } catch (error) {
+    console.error(`❌ Error fetching latest price for ${symbol}:`, error.message);
+    return null;
+  }
+}
